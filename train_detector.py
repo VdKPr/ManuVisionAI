@@ -33,7 +33,6 @@ dataset_path = r"D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\MVTec AD d
 images = []
 labels = []
 class_names = []
-
 # Good images from train (label = 0)
 good_path = os.path.join(dataset_path, "train", "good")
 for img_name in os.listdir(good_path):
