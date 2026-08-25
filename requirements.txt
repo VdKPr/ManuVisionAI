@@ -1,0 +1,70 @@
+# DocVision AI — Requirements
+# Environment: Docvision_env
+
+# Core LangChain
+langchain
+langchain-openai
+langchain-community
+
+# Vector Database
+chromadb
+pillow
+matplotlib
+torchvision
+# Embeddings
+openai
+tiktoken
+sentence-transformers
+langchain.chains
+# PDF Processing
+pymupdf
+
+# UI
+streamlit
+
+# Image Processing (for multimodal features later)
+Pillow
+opencv-python
+
+# CLIP (for image embeddings — Phase 2)
+# uncomment when you add image understanding
+# open-clip-torch
+# transformers
+
+# Hugging Face (for Phase 2 — MedReport AI)
+# uncomment when starting Project 2
+# transformers
+# datasets
+# peft
+# accelerate
+# bitsandbytes
+
+# Utilities
+python-dotenv
+numpy
+pandas
+
+langchain-text-splitters
+
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-text-splitters
+chromadb
+openai
+tiktoken
+sentence-transformers
+pymupdf
+streamlit
+python-dotenv
+numpy
+pandas
+Pillow
+opencv-python
+
+
+#train_detector.py
+torch
+torchvision
+scikit-learn
