@@ -13,8 +13,9 @@ Trained on the MVTec Anomaly Detection dataset. Built with PyTorch, Streamlit, a
 
 ## Demo
 
-![Defect Detected](D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\Screenshot1.png)
-![Dashboard](D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\Screenshot2.png)
+![Defect Detected](Screenshot1.png)
+![Dashboard](Screenshot2.png)
+![Sample Defects](mvtec_samples.png)
 
 ## Results
 
