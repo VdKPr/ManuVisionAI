@@ -17,7 +17,6 @@ for i, defect in enumerate(defect_types):
     # Get first image of this defect
     test_img_path = os.path.join(dataset_path, "test", defect)
     mask_path = os.path.join(gt_path, defect)
-    
     img_name = sorted(os.listdir(test_img_path))[0]
     mask_name = sorted(os.listdir(mask_path))[0]
     

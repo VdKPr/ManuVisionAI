@@ -107,7 +107,6 @@ class DefectSegDataset(Dataset):
 dataset_path = r"D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\MVTec AD datase\metal_nut"
 test_path = os.path.join(dataset_path, "test")
 gt_path = os.path.join(dataset_path, "ground_truth")
-
 images = []
 masks = []
 
