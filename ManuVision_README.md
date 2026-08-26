@@ -1,4 +1,4 @@
-# 🔍 ManuVision AI — AI Manufacturing Quality Inspector
+# 🔍 ManuVision AI - AI Manufacturing Quality Inspector
 
 An AI-powered manufacturing defect detection system that identifies product defects using computer vision and logs inspection results with an analytics dashboard.
 
