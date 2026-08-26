@@ -136,6 +136,7 @@ def segment_defect(image, model):
     with torch.no_grad():
         mask = model(img_tensor)
     mask = mask.squeeze().numpy()
+
     # Threshold
     mask = (mask > 0.25).astype(np.uint8)
     

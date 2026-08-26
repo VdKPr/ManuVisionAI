@@ -15,6 +15,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
+
 # Test with a defective image
 img = Image.open(r"D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\MVTec AD datase\metal_nut\test\bent\000.png").convert('RGB')
 img_tensor = transform(img).unsqueeze(0)
