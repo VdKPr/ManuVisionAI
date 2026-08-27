@@ -64,6 +64,38 @@ ManuVision-AI/
 ├── mvtec_samples.png       # Sample defect images
 └── README.md               # This file
 ```
+## Level 2: Defect Segmentation & Measurement
+
+- **U-Net** trained on MVTec AD ground truth masks to segment exact defect regions
+- Post-processing pipeline: binary opening/closing + min-size filtering (same approach as medical image segmentation)
+- Automatic **defect measurement**: area (mm²) and length (mm) calculated from segmented regions
+- **Configurable batch tolerances** — operators set max length/area limits per batch via sidebar
+- Verdict: ACCEPT (within tolerance) or REJECT (exceeds limits)
+
+![Segmentation Result](Screenshot_segmentation.png)
+
+## Level 3: LLM Root Cause Analysis
+
+- **GPT-4o-mini** generates manufacturing-specific root cause analysis for each detected defect
+- Analysis includes: probable cause, contributing factors, corrective actions, severity assessment, and specific process parameters to check
+- Powered by **LangChain** prompt engineering with domain-specific manufacturing context
+- Transforms ManuVision AI from a detection tool into a **diagnostic system**
+
+![Root Cause Analysis](Screenshot_rootcause.png)
+
+## Updated Architecture
+
+```
+Product Image → ResNet18 Classifier → Defect Type + Confidence
+                    ↓
+              U-Net Segmentation → Defect Mask → Measurements (mm², mm)
+                    ↓
+              Tolerance Check → ACCEPT / REJECT
+                    ↓
+              GPT-4o-mini → Root Cause Analysis + Recommended Actions
+                    ↓
+              SQLite Database → Inspection Dashboard
+```
 
 ## Roadmap
 
