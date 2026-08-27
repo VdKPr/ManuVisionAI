@@ -322,6 +322,18 @@ def main():
                 st.warning(f"📋 **VERDICT: ACCEPT WITH DEVIATION** — Defect present but within tolerance limits")
             else:
                 st.error(f"📋 **VERDICT: REJECT** — Defect exceeds batch tolerance limits")
+                            # ---- LLM ROOT CAUSE ANALYSIS ----
+                st.write("---")
+                st.write("### 🧠 AI Root Cause Analysis")
+                
+                with st.spinner("Analyzing root cause..."):
+                    from root_cause import get_root_cause_analysis
+                    analysis = get_root_cause_analysis(
+                        defect_type=prediction,
+                        measurements=measurements if measurements else [],
+                        confidence=confidence
+                    )
+                st.markdown(analysis)
             
             # Log with measurements
             log_inspection(prediction, confidence, is_defective, total_area, max_len, int(all_passed))
@@ -335,6 +347,17 @@ def main():
     elif uploaded_file and is_defective and not seg_model_exists:
         st.info("ℹ️ Segmentation model not found. Run train_segmentation.py first for measurement features.")
         log_inspection(prediction, confidence, is_defective)
+        # Still show root cause even without segmentation
+        st.write("---")
+        st.write("### 🧠 AI Root Cause Analysis")
+        with st.spinner("Analyzing root cause..."):
+            from root_cause import get_root_cause_analysis
+            analysis = get_root_cause_analysis(
+                defect_type=prediction,
+                measurements=[],
+                confidence=confidence
+            )
+        st.markdown(analysis)
 
     # ---- DASHBOARD ----
     st.write("---")
