@@ -97,6 +97,17 @@ Product Image → ResNet18 Classifier → Defect Type + Confidence
               SQLite Database → Inspection Dashboard
 ```
 
+## Level 4: FastAPI REST API
+
+- Production-grade **REST API** with auto-generated Swagger documentation
+- `POST /inspect` — upload image → returns full JSON: classification, measurements, tolerance, root cause
+- `GET /dashboard` — inspection statistics, defect breakdown, recent history
+- `GET /stats` — quick defect rate monitoring
+- `GET /health` — API health check
+- Any frontend, mobile app, or factory system can integrate via HTTP
+
+![API Documentation](Screenshot_api.png)
+
 ## Roadmap
 
 - [ ] LLM-powered root cause analysis — AI explains WHY the defect happened and recommends process fixes
