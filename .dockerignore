@@ -13,6 +13,7 @@ MVTec AD datase/
 __pycache__/
 *.pyc
 *.pyo
+
 # ML model files
 *.pt
 #*.pth
