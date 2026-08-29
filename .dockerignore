@@ -1,0 +1,35 @@
+# Virtual environment
+.venv_ManuVisionAI/
+.venv/
+venv/
+
+# Dataset
+MVTec AD datase/
+
+# Git
+.git/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# ML model files
+*.pt
+#*.pth
+*.onnx
+*.ckpt
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+
+# Reports / generated files
+Report/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
