@@ -15,7 +15,7 @@ torchvision
 openai
 tiktoken
 sentence-transformers
-langchain.chains
+#langchain.chains
 # PDF Processing
 pymupdf
 
@@ -68,3 +68,23 @@ opencv-python
 torch
 torchvision
 scikit-learn
+
+
+#api.py
+fastapi.responses
+fastapi
+torch
+torchvision
+streamlit
+fastapi
+uvicorn
+python-multipart
+Pillow
+matplotlib
+scikit-learn
+scipy
+numpy
+langchain
+langchain-openai
+langchain-core
+python-dotenv

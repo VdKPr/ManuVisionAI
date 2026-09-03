@@ -97,7 +97,7 @@ class DefectSegDataset(Dataset):
         
         img = self.img_transform(img)
         mask = self.mask_transform(mask)
-        mask = (mask > 0.3).float()  # binary: 0 or 1
+        mask = (mask > 0).float()  # binary: 0 or 1
         
         return img, mask
 
@@ -162,7 +162,7 @@ class DefectSegDatasetWithGood(Dataset):
         if self.mask_paths[idx] is not None:
             mask = Image.open(self.mask_paths[idx]).convert('L')
             mask = self.mask_transform(mask)
-            mask = (mask > 0.3).float()
+            mask = (mask > 0.19).float()
         else:
             mask = torch.zeros(1, self.img_size, self.img_size)
         

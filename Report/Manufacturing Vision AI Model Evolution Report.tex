@@ -1,0 +1,121 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{array}
+\usepackage{enumitem}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\begin{document}
+
+%========================
+% TITLE PAGE
+%========================
+
+\begin{titlepage}
+\centering
+
+\vspace*{2cm}
+
+{\Huge \textbf{ManuVision AI}}\\[0.5cm]
+
+{\Large Manufacturing Vision AI Model Evolution Report}\\[1cm]
+
+\textbf{Project Objective}
+
+\\[0.3cm]
+
+Design and continuously improve an AI-based manufacturing defect detection system through seven iterative model versions.
+
+\vfill
+
+\begin{tabular}{rl}
+Author: & Your Name \\
+Project Duration: & 2026 \\
+Repository: & GitHub Link \\
+Version: & Master Engineering Report
+\end{tabular}
+
+\vfill
+
+\today
+
+\end{titlepage}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter{Project Overview}
+%\input{chapters/00_project_overview}
+\section{Problem Statement}
+
+Manufacturing industries require automatic visual inspection of components to identify defective products with high accuracy and low inference latency.
+
+\section{Project Goal}
+
+Develop a computer vision system capable of detecting surface defects and progressively improve its robustness across seven engineering iterations.
+
+\section{Final Success Criteria}
+
+\begin{itemize}
+    \item High defect detection accuracy
+    \item Low false negative rate
+    \item Robust to illumination variation
+    \item Robust to material variation
+    \item Production-ready inference speed
+\end{itemize}
+
+\section{Development Philosophy}
+
+Each version solves one or more identified limitations from the previous version. No modification is introduced without documenting:
+
+\begin{enumerate}
+    \item Existing limitation
+    \item Root cause
+    \item Hypothesis
+    \item Engineering modification
+    \item Experimental result
+    \item Remaining limitations
+\end{enumerate}
+
+\chapter{Base Model}
+%\input{chapters/01_base_model}
+
+\chapter{Version 1}
+%\input{chapters/02_v1}
+
+\chapter{Version 2}
+%\input{chapters/03_v2}
+
+\chapter{Version 3}
+%\input{chapters/04_v3}
+
+\chapter{Version 4}
+%\input{chapters/05_v4}
+
+\chapter{Version 5}
+%\input{chapters/06_v5}
+
+\chapter{Version 6}
+%\input{chapters/07_v6}
+
+\chapter{Version 7}
+%\input{chapters/08_v7}
+
+\chapter{Final Comparative Analysis}
+
+\chapter{Future Work}
+
+\end{document}

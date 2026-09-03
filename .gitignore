@@ -1,0 +1,27 @@
+# Environment / secrets
+.env
+.venv/
+venv/
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Datasets
+MVTec AD datase/
+MVTec AD datase.zip
+
+# Model weights
+*.pth
+*.pt
+*.ckpt
+
+# Databases / runtime data
+*.db
+*.sqlite
+*.sqlite3
+
+# Generated/debug files
+seg_debug.png
+mask_samples.png
