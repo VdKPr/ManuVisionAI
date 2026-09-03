@@ -121,8 +121,4 @@ Product Image → ResNet18 Classifier → Defect Type + Confidence
 
 Manufacturing quality inspection is a $4.5B market. Human inspectors miss 20-30% of defects and fatigue within 2 hours. This system achieves 89% accuracy with zero fatigue, logging every decision for traceability — addressing real industry pain points in automated quality control.
 
-## Author
 
-**Varad Pawar** — M.Tech, IIT Bombay | GATE AIR 208 | AI/ML Engineer
-- LinkedIn: https://linkedin.com/in/varadkpawar
-- GitHub: https://github.com/VdKPr
