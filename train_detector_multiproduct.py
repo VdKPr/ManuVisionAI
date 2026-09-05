@@ -65,7 +65,6 @@ for category in categories:
             images.append(os.path.join(defect_dir, img_name))
             labels.append(1)
 
-
 good_count = labels.count(0)
 defect_count = labels.count(1)
 print(f"Good: {good_count}, Defective: {defect_count}, Total: {len(labels)}")
