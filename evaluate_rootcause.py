@@ -46,6 +46,7 @@ print(f"Testing {len(test_images)} defective images\n")
 # Run each through pipeline
 # ============================================
 results = []
+
 for i, item in enumerate(test_images):
     print(f"{'='*60}")
     print(f"Image {i+1}: {item['defect_type']} — {os.path.basename(item['path'])}")

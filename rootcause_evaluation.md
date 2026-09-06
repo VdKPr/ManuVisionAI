@@ -333,4 +333,5 @@ The most likely cause of the scratch defect on the metal nut is improper handlin
 
 - **Expert Assessment:** [YOUR RATING: Correct]
 - **Expert Notes:** [YOUR NOTES: The proposed causes are consistent with a scratch defect, particularly handling contact, inadequate fixtures, part-to-part contact, rough surfaces, and foreign debris. This is a stronger RCA because it connects the defect mechanism to physical contact during handling. However, operator training and generic press/heat-treatment parameters are secondary hypotheses and should be validated against the actual production process.]
+
 ---
