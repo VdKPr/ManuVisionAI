@@ -40,7 +40,6 @@ for defect_type in sorted(os.listdir(dataset_path)):
             "path": os.path.join(defect_dir, img_name),
             "defect_type": defect_type
         })
-
 print(f"Testing {len(test_images)} defective images\n")
 
 # ============================================
