@@ -1,0 +1,6 @@
+Anomaly detection experiment: autoencoder-based approach with per-category training, bottleneck compression, and threshold analysis - documented limitations and comparison with supervised approach
+
+
+"I tried four approaches for product generalization. The autoencoder achieved 29% defect recall - insufficient because reconstruction errors between good and defective parts overlapped too much. The fundamental issue is that a basic convolutional autoencoder learns texture reconstruction, not semantic 'goodness.'
+
+For production, I'd use PatchCore or EfficientAD which extract patch-level features from pretrained networks and use nearest-neighbor scoring - these achieve 99% AUROC on MVTec AD. My per-category ResNet18 classifier at 89% accuracy is the current working solution, with the understanding that each new product line needs its own training run."
