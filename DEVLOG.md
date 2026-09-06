@@ -56,6 +56,7 @@
 - Problem: error distributions still overlap — basic autoencoder insufficient
 - Learning: state-of-art methods (PatchCore, EfficientAD) use pretrained features, not raw reconstruction
 
+
 ### Conclusion
 - Per-category ResNet18 classifier (89%) remains the working solution
 - Each new product line needs its own training run
