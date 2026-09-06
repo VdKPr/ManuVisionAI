@@ -56,8 +56,15 @@
 - Problem: error distributions still overlap — basic autoencoder insufficient
 - Learning: state-of-art methods (PatchCore, EfficientAD) use pretrained features, not raw reconstruction
 
+<<<<<<< HEAD
 
 ### Conclusion
 - Per-category ResNet18 classifier (89%) remains the working solution
 - Each new product line needs its own training run
 - For production: PatchCore or EfficientAD for unsupervised anomaly detection
+=======
+### Conclusion
+- Per-category ResNet18 classifier (89%) remains the working solution
+- Each new product line needs its own training run
+- For production: PatchCore or EfficientAD for unsupervised anomaly detection
+>>>>>>> 179bbdb8f5d7f9da15705af6d3e5d51152c23d5b
