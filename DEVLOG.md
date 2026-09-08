@@ -56,15 +56,41 @@
 - Problem: error distributions still overlap — basic autoencoder insufficient
 - Learning: state-of-art methods (PatchCore, EfficientAD) use pretrained features, not raw reconstruction
 
-<<<<<<< HEAD
+### Conclusion
+- Per-category ResNet18 classifier (89%) remains the working solution
+- Each new product line needs its own training run
+- For production: PatchCore or EfficientAD for unsupervised anomaly detection
 
-### Conclusion
-- Per-category ResNet18 classifier (89%) remains the working solution
-- Each new product line needs its own training run
-- For production: PatchCore or EfficientAD for unsupervised anomaly detection
-=======
-### Conclusion
-- Per-category ResNet18 classifier (89%) remains the working solution
-- Each new product line needs its own training run
-- For production: PatchCore or EfficientAD for unsupervised anomaly detection
->>>>>>> 179bbdb8f5d7f9da15705af6d3e5d51152c23d5b
+
+---
+
+## Correction notice (post-audit)
+
+The figures above are the ORIGINAL run and several are superseded. Corrected
+values, obtained under a held-out 60/20/20 protocol at lr=1e-4:
+
+| Claim above | Corrected |
+|---|---|
+| Per-category ResNet18 89% | 93.5% +/- 3.1% held-out (3 splits) |
+| Multi-class 73-class: 80% acc, macro F1 0.20 | 90.4% acc, macro F1 0.62 |
+| Binary: 76% acc, 0% defect recall | 94.5% acc, 85.3% defect recall |
+| Autoencoder per-category 29% defect detection | unchanged -- this result is real |
+
+Two of the three apparent failures were artifacts, not findings:
+
+* The 73-class result came from a label bug -- `label_id` started at 0, the
+  same index as `good`, merging 20 bottle_broken_large images into the
+  conforming class and misaligning every later label.
+* The binary result came from `lr=0.001`, an order of magnitude too high for
+  fine-tuning a pretrained ResNet18. It collapses the model onto the majority
+  class, which looks exactly like "the task is impossible".
+
+The autoencoder failure survives scrutiny because it has a mechanism:
+reconstruction error is ANTI-correlated with defectiveness for bent, scratch
+and color (they reconstruct with LOWER error than good parts), so no threshold
+can work. Detection is 100% on flip and 4/70 on everything else.
+
+Also fixed: app.py / api.py / agent.py loaded `best_defect_model.pth`, which the
+multi-product scripts overwrite. Since Sep 4 that file held a 2-class model, so
+loading it into the 5-class head raised a size-mismatch error at startup. The
+training scripts now write distinct filenames.
