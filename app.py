@@ -68,7 +68,7 @@ class UNet(nn.Module):
 def load_classifier():
     model = models.resnet18(pretrained=False)
     model.fc = nn.Linear(model.fc.in_features, len(class_names))
-    model.load_state_dict(torch.load('best_defect_model.pth', map_location='cpu'))
+    model.load_state_dict(torch.load('best_metalnut_lr0.0001_seed42.pth', map_location='cpu'))
     model.eval()
     return model
 

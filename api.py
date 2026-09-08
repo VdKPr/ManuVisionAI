@@ -52,7 +52,7 @@ class UNet(nn.Module):
 # Load models once at startup
 classifier = models.resnet18(pretrained=False)
 classifier.fc = nn.Linear(classifier.fc.in_features, len(class_names))
-classifier.load_state_dict(torch.load('best_defect_model.pth', map_location='cpu'))
+classifier.load_state_dict(torch.load('best_metalnut_lr0.0001_seed42.pth', map_location='cpu'))
 classifier.eval()
 
 seg_model = UNet()
