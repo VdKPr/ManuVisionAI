@@ -145,7 +145,7 @@ model = model.to(device)
 #criterion = nn.CrossEntropyLoss()
 weight = torch.tensor([1.0, good_count/defect_count]).to(device)
 criterion = nn.CrossEntropyLoss(weight=weight)
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=15, gamma=0.1)
 
 # ============================================
@@ -194,7 +194,7 @@ for epoch in range(num_epochs):
 
     if val_acc > best_acc:
         best_acc = val_acc
-        torch.save(model.state_dict(), 'best_defect_model.pth')
+        torch.save(model.state_dict(), 'best_multiproduct_binary.pth')
         print(f"  → Saved best model (Val Acc: {val_acc:.1f}%)")
     scheduler.step()
 print(f"\nBest Validation Accuracy: {best_acc:.1f}%")
@@ -205,7 +205,7 @@ print("Model saved as best_defect_model.pth")
 # ============================================
 from sklearn.metrics import classification_report
 
-model.load_state_dict(torch.load('best_defect_model.pth'))
+model.load_state_dict(torch.load('best_multiproduct_binary.pth'))
 model.eval()
 
 all_preds = []

@@ -33,8 +33,8 @@ categories = os.listdir(root_path)  # ['bottle', 'cable', 'capsule', ...]
 
 images = []
 labels = []
-class_names = []
-label_id = 0  # FIX 2: ONE counter, starts before loop, NEVER resets
+class_names = ["good"]   # built ONCE, not per category
+label_id = 1             # start at 1: 0 is reserved for "good"
 
 # dataset_path = r"D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\MVTec AD datase\metal_nut"
 
@@ -62,7 +62,6 @@ for category in categories:
             images.append(os.path.join(test_good, img_name))
             labels.append(0)
 
-    class_names.append("good")
 
     # Defect images from test (label = 1, 2, 3...)
     test_path = os.path.join(category_path, "test")
@@ -122,7 +121,7 @@ model.fc = nn.Linear(model.fc.in_features, len(class_names))
 model = model.to(device)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=15, gamma=0.1)
 
 # ============================================
@@ -171,7 +170,7 @@ if False:  # SKIP — already trained
 
         if val_acc > best_acc:
             best_acc = val_acc
-            torch.save(model.state_dict(), 'best_defect_model.pth')
+            torch.save(model.state_dict(), 'best_multiproduct_73class.pth')
             print(f"  → Saved best model (Val Acc: {val_acc:.1f}%)")
         scheduler.step()
 print(f"\nBest Validation Accuracy: {best_acc:.1f}%")
@@ -182,7 +181,7 @@ print("Model saved as best_defect_model.pth")
 # ============================================
 from sklearn.metrics import classification_report
 
-model.load_state_dict(torch.load('best_defect_model.pth'))
+model.load_state_dict(torch.load('best_multiproduct_73class.pth'))
 model.eval()
 
 all_preds = []
