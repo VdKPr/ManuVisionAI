@@ -1,0 +1,60 @@
+﻿Total pairs      : 115  (93 defect + 22 good)
+Validation split : 23  (18 defect + 5 good)
+Inference done on 23 images (device: cuda)
+
+================================================================================================
+SEGMENTATION RESULTS + POST-PROCESSING ABLATION
+Defect images: 18   Good images (empty GT): 5
+================================================================================================
+Configuration                           Dice     IoU  AggDice    Prec     Rec  GoodFP%     FPpx
+-----------------------------------------------------------------------------------------------
+thr 0.50, raw                          0.822   0.722    0.957   0.959   0.956       0%        0
+thr 0.25, raw                          0.830   0.729    0.948   0.925   0.973     100%        7
+thr 0.25 + opening                     0.832   0.731    0.949   0.928   0.971       0%        0
+thr 0.25 + opening + closing           0.831   0.730    0.949   0.928   0.971       0%        0
+thr 0.25 + open + close + min-size     0.833   0.733    0.950   0.929   0.971       0%        0
+
+Dice / IoU : per-image mean over defect images (the number to report)
+AggDice    : dataset-level Dice from pooled TP/FP/FN (less noisy, less standard)
+Prec / Rec : pixel-level precision and recall on defect images
+GoodFP%    : share of GOOD images with at least one predicted defect pixel
+             (a false alarm -> a conforming part sent for rework)
+FPpx       : mean falsely predicted pixels per good image
+
+================================================================================================
+WHAT THE ABLATION SHOWS
+================================================================================================
+threshold 0.5 vs 0.25   : Dice 0.822 -> 0.830
+post-processing effect  : Dice 0.830 -> 0.833 (+0.003)
+                          precision 0.925 -> 0.929 (+0.004)
+                          recall    0.973 -> 0.971 (-0.001)
+                          false alarms on good parts 100% -> 0%
+
+================================================================================================
+PASTE THIS INTO THE PAPER (new table in Section 4)
+================================================================================================
+\begin{table}[h]
+\centering
+\small
+\caption{Segmentation performance and post-processing ablation on the
+metal\_nut validation split (18 defect images with pixel-level ground truth,
+5 defect-free images). Dice and IoU are per-image means over defect images;
+precision and recall are pixel-level. The final row is the deployed
+configuration.}
+\label{tab:segmentation}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Configuration} & \textbf{Dice} & \textbf{IoU} & \textbf{Precision} & \textbf{Recall} & \textbf{FP rate} \\
+\hline
+thr 0.50, raw & 0.822 & 0.722 & 0.959 & 0.956 & 0\% \\
+thr 0.25, raw & 0.830 & 0.729 & 0.925 & 0.973 & 100\% \\
+thr 0.25 $+$ opening & 0.832 & 0.731 & 0.928 & 0.971 & 0\% \\
+thr 0.25 $+$ opening $+$ closing & 0.831 & 0.730 & 0.928 & 0.971 & 0\% \\
+\textbf{thr 0.25 $+$ open $+$ close $+$ min-size} & 0.833 & 0.733 & 0.929 & 0.971 & 0\% \\
+\hline
+\end{tabular}
+\end{table}
+
+NOTE: only 18 defect images carry ground truth in this split.
+      Report the count in the caption (done above) and treat these
+      as indicative rather than tight estimates.

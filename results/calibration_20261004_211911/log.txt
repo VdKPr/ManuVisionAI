@@ -1,0 +1,12 @@
+images measured : 220 of 220 (failed segmentation: 0)
+image size      : 700 x 700
+feature         : minrect_short = 16.0 mm (assumed)
+reference px    : median 565.0, IQR 563.9-565.8, CV 0.34%
+
+mm per pixel, original 700x700   : 0.0283
+mm per pixel, 256x256 mask      : 0.0774   <- use this in app.py / api.py
+old arbitrary value               : 0.1000  (off by 0.77x)
+
+scale uncertainty from part tolerance alone (ISO 4032 M10, 15.73-16.00 mm): ~1.7%
+
+Saved calibration.json and 4 overlay images to D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\results\calibration_20261004_211911

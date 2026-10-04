@@ -1,0 +1,90 @@
+﻿validation split: 23 images, 18 with ground-truth masks
+
+defect     GT area    pred    err%   GT len   pred    err%  GTn  pn
+--------------------------------------------------------------------
+scratch       4036    4715   +16.8      182    178    -2.2    2   3
+bent          1079     814   -24.6       56     39   -30.4    1   1
+color         3219    4097   +27.3      101    100    -1.0    1   1
+flip         31865   32894    +3.2      229    230    +0.4    1   1
+bent          2027    1769   -12.7       67     60   -10.4    3   1
+color         2471    3273   +32.5       81     86    +6.2    1   3
+scratch       1300     608   -53.2       62     30   -51.6    1   1
+flip         31962   32857    +2.8      227    229    +0.9    1   1
+flip         32054   32770    +2.2      225    225    +0.0    1   1
+bent           993    1101   +10.9       46     48    +4.3    1   1
+color         3088    3697   +19.7       78     86   +10.3    2   1
+scratch       2563    5558  +116.9      156    157    +0.6    1  11
+bent          1650    1422   -13.8       53     55    +3.8    2   2
+bent          3198    2764   -13.6       85     84    -1.2    2   2
+scratch       7841    7633    -2.7      164    162    -1.2    1   1
+color          413     251   -39.2       50     22   -56.0    1   1
+flip         31792   32658    +2.7      226    228    +0.9    1   1
+bent          1639    1711    +4.4       66     57   -13.6    2   2
+
+====================================================================
+MEASUREMENT ACCURACY  (18 of 18 images with a detected defect)
+====================================================================
+TOTAL DEFECT AREA
+  ground truth   mean   9066.1 px     range 413-32054
+  predicted      mean   9477.3 px  
+  bias             +411.2 px     (+4.4% mean relative)
+  MAE               660.9 px  
+  MAPE               22.2%
+  median abs err     13.7%
+  correlation r     0.998
+
+MAXIMUM REGION LENGTH
+  ground truth   mean    119.7 px     range 46-229
+  predicted      mean    115.3 px  
+  bias               -4.3 px     (-7.8% mean relative)
+  MAE                 6.9 px  
+  MAPE               10.8%
+  median abs err      3.0%
+  correlation r     0.991
+
+REGION COUNT: ground truth 25 regions, predicted 35  (+40%)
+  exact match on 13/18 images
+
+====================================================================
+TOLERANCE-DECISION AGREEMENT
+====================================================================
+Fraction of images where the predicted measurement yields the same
+ACCEPT/REJECT disposition as ground truth, swept across thresholds.
+
+  L_max (px)  GT reject  pred reject   agreement
+          20         18           18        100%
+          40         18           15         83%
+          60         14           11         83%
+          80         10           11         94%
+         100          8            7         94%
+         120          7            7        100%
+
+  A_max (px)  GT reject  pred reject   agreement
+         500         17           17        100%
+        1000         16           15         83%
+        2000         12           11         94%
+        3000          9           10         83%
+        5000          5            6         94%
+        8000          4            4        100%
+
+====================================================================
+LATEX
+====================================================================
+\begin{table}[h]
+\centering
+\caption{Dimensional measurement accuracy against mask-derived ground truth on
+the 18 validation images with a detected defect. Errors are reported in pixels;
+relative error is invariant to the pixel-to-millimetre calibration $s$, whereas
+absolute millimetre error would simply inherit whichever value of $s$ the
+operator enters.}
+\label{tab:measurement}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Quantity} & \textbf{GT mean} & \textbf{Bias} & \textbf{MAE} & \textbf{MAPE} \\
+\hline
+Total defect area & 9066 px & +411 px & 661 px & 22\% \\
+\hline
+Max region length & 120 px & -4 px & 7 px & 11\% \\
+\hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,61 @@
+﻿device: cuda
+gpu   : NVIDIA GeForce RTX 4060 Laptop GPU
+
+benchmarking local stages...
+timing 5 GPT-4o-mini calls (network bound)...
+  call 1/5: 9891 ms
+  call 2/5: 8252 ms
+  call 3/5: 9149 ms
+  call 4/5: 7484 ms
+  call 5/5: 8082 ms
+
+==================================================================
+PER-STAGE LATENCY
+==================================================================
+Stage                          Mean (ms)    Std (ms)
+------------------------------------------------------------------
+classify (ResNet18)                  4.7         0.9
+segment (U-Net)                     15.6         1.7
+post-process (morph.)                2.1         0.2
+measure (conn. comp.)                0.3         0.0
+tolerance check                      0.0         0.0
+root cause (GPT-4o-mini)          8571.4       948.4
+
+==================================================================
+END-TO-END PATHS
+==================================================================
+conforming (classify -> report)      :       4.7 ms
+defective, local stages only         :      22.7 ms
+defective, including LLM             :    8594.1 ms
+
+saving on conforming parts, local only :   79.2%
+saving on conforming parts, incl. LLM  :   99.9%
+LLM share of the defective path        :   99.7%
+
+(paper currently claims 'approximately 60%')
+
+==================================================================
+LATEX TABLE
+==================================================================
+\begin{table}[h]
+\centering
+\caption{Measured per-stage latency on an NVIDIA RTX 4060, mean $\pm$
+standard deviation over 20 runs (5 runs for the network-bound LLM call).
+The agent executes only the first stage for conforming parts.}
+\label{tab:latency}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Stage} & \textbf{Mean (ms)} & \textbf{Std (ms)} \\
+\hline
+classify (ResNet18) & 4.7 & 0.9 \\
+segment (U-Net) & 15.6 & 1.7 \\
+post-process (morph.) & 2.1 & 0.2 \\
+measure (conn. comp.) & 0.3 & 0.0 \\
+tolerance check & 0.0 & 0.0 \\
+root cause (GPT-4o-mini) & 8571.4 & 948.4 \\
+\hline
+\textbf{Conforming path (1 stage)} & \textbf{4.7} & \\
+\textbf{Defective path (5 stages)} & \textbf{8594.1} & \\
+\hline
+\end{tabular}
+\end{table}

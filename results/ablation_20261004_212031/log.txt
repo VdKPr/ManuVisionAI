@@ -1,0 +1,94 @@
+335 images, classes ['good', 'bent', 'color', 'flip', 'scratch'], device cuda
+configs ['baseline', 'aug', 'wce', 'aug+wce', 'aug+mirror'], seeds [42, 43, 44], results -> D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\results\ablation_20261004_212031
+
+baseline    seed 42: test acc  97.0  macroF1 0.93  escapes 11.1%  false rejects  0.0%
+baseline    seed 43: test acc  95.5  macroF1 0.87  escapes  5.6%  false rejects  0.0%
+baseline    seed 44: test acc  85.1  macroF1 0.72  escapes  5.6%  false rejects 10.2%
+
+aug         seed 42: test acc  98.5  macroF1 0.98  escapes  5.6%  false rejects  0.0%
+aug         seed 43: test acc  94.0  macroF1 0.82  escapes  5.6%  false rejects  2.0%
+aug         seed 44: test acc  94.0  macroF1 0.83  escapes 16.7%  false rejects  0.0%
+
+wce         seed 42: test acc  94.0  macroF1 0.92  escapes  5.6%  false rejects  6.1%
+wce         seed 43: test acc  92.5  macroF1 0.82  escapes  5.6%  false rejects  2.0%
+wce         seed 44: test acc  91.0  macroF1 0.79  escapes 16.7%  false rejects  2.0%
+
+aug+wce     seed 42: test acc 100.0  macroF1 1.00  escapes  0.0%  false rejects  0.0%
+aug+wce     seed 43: test acc  95.5  macroF1 0.93  escapes  5.6%  false rejects  4.1%
+aug+wce     seed 44: test acc  98.5  macroF1 0.97  escapes  5.6%  false rejects  0.0%
+
+aug+mirror  seed 42: test acc 100.0  macroF1 1.00  escapes  0.0%  false rejects  0.0%
+aug+mirror  seed 43: test acc 100.0  macroF1 1.00  escapes  0.0%  false rejects  0.0%
+aug+mirror  seed 44: test acc  97.0  macroF1 0.93  escapes 11.1%  false rejects  0.0%
+
+| Config | Test accuracy % | Balanced acc % | Macro F1 | Escape rate % | False-reject rate % | Pooled escapes |
+|---|---|---|---|---|---|---|
+| baseline | 92.5 ± 6.5 | 83.7 ± 7.8 | 0.84 ± 0.11 | 7.4 ± 3.2 | 3.4 ± 5.9 | 4/54 |
+| aug | 95.5 ± 2.6 | 87.2 ± 7.8 | 0.88 ± 0.08 | 9.3 ± 6.4 | 0.7 ± 1.2 | 5/54 |
+| wce | 92.5 ± 1.5 | 84.3 ± 8.4 | 0.84 ± 0.07 | 9.3 ± 6.4 | 3.4 ± 2.4 | 5/54 |
+| aug+wce | 98.0 ± 2.3 | 96.4 ± 3.1 | 0.97 ± 0.03 | 3.7 ± 3.2 | 1.4 ± 2.4 | 2/54 |
+| aug+mirror | 99.0 ± 1.7 | 96.7 ± 5.8 | 0.98 ± 0.04 | 3.7 ± 6.4 | 0.0 ± 0.0 | 2/54 |
+
+Seed-paired change vs baseline (mean ± std over seeds, percentage points):
+
+| Config | Δ accuracy | Δ macro F1 (×100) | Δ escape rate | Δ false-reject rate |
+|---|---|---|---|---|
+| aug | 3.0 ± 5.4 | 3.7 ± 8.2 | 1.9 ± 8.5 | -2.7 ± 6.6 |
+| wce | 0.0 ± 5.2 | 0.2 ± 6.4 | 1.9 ± 8.5 | 0.0 ± 7.4 |
+| aug+wce | 5.5 ± 7.1 | 12.6 ± 10.7 | -3.7 ± 6.4 | -2.0 ± 7.4 |
+| aug+mirror | 6.5 ± 4.8 | 13.6 ± 7.0 | -3.7 ± 8.5 | -3.4 ± 5.9 |
+
+Per-class recall % (mean over seeds):
+
+| Config | good | bent | color | flip | scratch |
+|---|---|---|---|---|---|
+| baseline | 97 | 100 | 53 | 100 | 68 |
+| aug | 99 | 87 | 75 | 100 | 75 |
+| wce | 97 | 93 | 55 | 100 | 77 |
+| aug+wce | 99 | 100 | 92 | 100 | 92 |
+| aug+mirror | 100 | 100 | 100 | 100 | 83 |
+
+Each test split has 67 images; one image is 1.5 accuracy points.
+Differences smaller than the seed-to-seed spread are noise, not findings.
+
+Pooled confusion matrix — baseline (rows = true, cols = predicted)
+              good     bent    color     flip  scratch
+     good      142        1        0        0        4
+     bent        0       15        0        0        0
+    color        4        0        7        0        2
+     flip        0        0        0       13        0
+  scratch        0        4        0        0        9
+
+Pooled confusion matrix — aug (rows = true, cols = predicted)
+              good     bent    color     flip  scratch
+     good      146        0        0        0        1
+     bent        1       13        1        0        0
+    color        1        2       10        0        0
+     flip        0        0        0       13        0
+  scratch        3        0        0        0       10
+
+Pooled confusion matrix — wce (rows = true, cols = predicted)
+              good     bent    color     flip  scratch
+     good      142        4        1        0        0
+     bent        0       14        0        0        1
+    color        4        1        7        0        1
+     flip        0        0        0       13        0
+  scratch        1        2        0        0       10
+
+Pooled confusion matrix — aug+wce (rows = true, cols = predicted)
+              good     bent    color     flip  scratch
+     good      145        0        0        0        2
+     bent        0       15        0        0        0
+    color        1        0       12        0        0
+     flip        0        0        0       13        0
+  scratch        1        0        0        0       12
+
+Pooled confusion matrix — aug+mirror (rows = true, cols = predicted)
+              good     bent    color     flip  scratch
+     good      147        0        0        0        0
+     bent        0       15        0        0        0
+    color        0        0       13        0        0
+     flip        0        0        0       13        0
+  scratch        2        0        0        0       11
+
+Saved to D:\envs\VSCODE_AI_Bootcamp\My_Projects\ManuVision AI\results\ablation_20261004_212031

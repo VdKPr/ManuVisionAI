@@ -1,0 +1,20 @@
+{
+  "assumption": "part = M10 nut, minrect_short = 16.0 mm (ISO 4032 across flats)",
+  "ref_feature": "minrect_short",
+  "ref_mm": 16.0,
+  "n_images": 220,
+  "median_ref_px": 564.9508056640625,
+  "iqr_px": [
+    563.8836975097656,
+    565.7938385009766
+  ],
+  "cv_percent": 0.3350191954350969,
+  "image_size": [
+    700,
+    700
+  ],
+  "mask_size": 256,
+  "mm_per_px_original": 0.02832104997388764,
+  "mm_per_px_mask": 0.07744037102234902,
+  "created": "2026-10-04T21:19:13"
+}

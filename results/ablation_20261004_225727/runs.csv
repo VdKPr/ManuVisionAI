@@ -1,0 +1,2 @@
+config,seed,val_acc,acc,bal_acc,macro_f1,escape_rate,false_reject,recall_good,recall_bent,recall_color,recall_flip,recall_scratch
+aug+mirror,42,0.9850746268656716,1.0,1.0,1.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0
