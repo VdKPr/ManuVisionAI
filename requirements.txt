@@ -25,7 +25,7 @@ streamlit
 # Image Processing (for multimodal features later)
 Pillow
 opencv-python
-
+cv2
 # CLIP (for image embeddings — Phase 2)
 # uncomment when you add image understanding
 # open-clip-torch
