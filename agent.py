@@ -13,7 +13,13 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langgraph.graph import StateGraph, END
 from typing import TypedDict, Annotated
 import json
-
+import json, os
+def load_mm_per_px(default=0.1):
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "calibration.json")
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)["mm_per_px_mask"]
+    return default
 load_dotenv()
 
 # ============================================
@@ -53,9 +59,9 @@ class UNet(nn.Module):
         return torch.sigmoid(self.final(d1))
 
 # Load models
-classifier = models.resnet18(pretrained=False)
+classifier = models.resnet18(weights=None)
 classifier.fc = nn.Linear(classifier.fc.in_features, len(class_names))
-classifier.load_state_dict(torch.load('best_metalnut_lr0.0001_seed42.pth', map_location='cpu'))
+classifier.load_state_dict(torch.load('best_metalnut_augmirror_seed42.pth', map_location='cpu'))
 classifier.eval()
 
 seg_model = UNet()
@@ -107,7 +113,8 @@ def tool_segment(image_path: str) -> dict:
     
     labeled, num = ndimage.label(mask)
     measurements = []
-    pixel_size = 0.1
+    pixel_size = load_mm_per_px()
+    #pixel_size = 0.1
     for i in range(1, num+1):
         region = (labeled==i)
         area = region.sum() * (pixel_size**2)
@@ -129,6 +136,8 @@ def tool_segment(image_path: str) -> dict:
 
 def tool_tolerance_check(measurements: list, max_length: float = 2.0, max_area: float = 5.0) -> dict:
     """Check measurements against tolerance limits"""
+    if not measurements:   # classifier says defect, segmenter found nothing
+        return {"tool": "tolerance_check", "verdict": "REVIEW", "details": []}
     results = []
     all_passed = True
     for m in measurements:
@@ -228,6 +237,10 @@ def tolerance_node(state: AgentState) -> AgentState:
     return state
 
 def root_cause_node(state: AgentState) -> AgentState:
+    if state["tolerance"]["verdict"] == "REVIEW":          # NEW
+        state["root_cause"] = "Skipped - part sent for human review"
+        state["step_log"].append("Step 4: Root cause skipped (REVIEW)")
+        return state
     print("🧠 Agent: Generating root cause analysis...")
     analysis = tool_root_cause(
         state["classification"]["prediction"],

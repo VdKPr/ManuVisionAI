@@ -14,6 +14,13 @@ from datetime import datetime
 from dotenv import load_dotenv
 from root_cause import get_root_cause_analysis
 
+import json, os
+def load_mm_per_px(default=0.1):
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "calibration.json")
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)["mm_per_px_mask"]
+    return default
 load_dotenv()
 
 # ============================================
@@ -50,9 +57,9 @@ class UNet(nn.Module):
         return torch.sigmoid(self.final(d1))
 
 # Load models once at startup
-classifier = models.resnet18(pretrained=False)
+classifier = models.resnet18(weights=None)
 classifier.fc = nn.Linear(classifier.fc.in_features, len(class_names))
-classifier.load_state_dict(torch.load('best_metalnut_lr0.0001_seed42.pth', map_location='cpu'))
+classifier.load_state_dict(torch.load('best_metalnut_augmirror_seed42.pth', map_location='cpu'))
 classifier.eval()
 
 seg_model = UNet()
@@ -150,7 +157,8 @@ def log_to_db(prediction, confidence, is_defective, area=0, length=0, within_tol
 class ToleranceParams(BaseModel):
     max_length_mm: float = 2.0
     max_area_mm2: float = 5.0
-    pixel_size_mm: float = 0.1
+    pixel_size_mm: float = load_mm_per_px()
+    #pixel_size_mm: float = 0.1
 
 @app.get("/")
 def root():
@@ -165,7 +173,8 @@ async def inspect_part(
     file: UploadFile = File(...),
     max_length_mm: float = 2.0,
     max_area_mm2: float = 5.0,
-    pixel_size_mm: float = 0.1
+    pixel_size_mm: float = load_mm_per_px()
+    #pixel_size_mm: float = 0.1
 ):
     """Full inspection pipeline: classify → segment → measure → tolerance → root cause"""
     
@@ -194,6 +203,10 @@ async def inspect_part(
         # Step 3: Measurement
         measurements = measure(mask, pixel_size_mm)
         result["measurements"] = measurements
+        if not measurements:   # classifier says defect, segmenter found nothing -> human check
+            result["verdict"] = "REVIEW — defect predicted but no region segmented"
+            log_to_db(prediction, confidence, is_defective, 0, 0, 0)
+            return result
         
         # Step 4: Tolerance check
         all_passed = True

@@ -7,7 +7,13 @@ import sqlite3
 import numpy as np
 from scipy import ndimage
 import matplotlib.pyplot as plt
-
+import json, os
+def load_mm_per_px(default=0.1):
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "calibration.json")
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)["mm_per_px_mask"]
+    return default
 # ============================================
 # CONFIG
 # ============================================
@@ -66,9 +72,9 @@ class UNet(nn.Module):
 # ============================================
 @st.cache_resource
 def load_classifier():
-    model = models.resnet18(pretrained=False)
+    model = models.resnet18(weights=None)
     model.fc = nn.Linear(model.fc.in_features, len(class_names))
-    model.load_state_dict(torch.load('best_metalnut_lr0.0001_seed42.pth', map_location='cpu'))
+    model.load_state_dict(torch.load('best_metalnut_augmirror_seed42.pth', map_location='cpu'))
     model.eval()
     return model
 
@@ -223,7 +229,7 @@ def main():
     st.sidebar.write("Configure per-batch quality limits:")
     max_length = st.sidebar.number_input("Max defect length (mm)", value=2.0, min_value=0.1, step=0.1)
     max_area = st.sidebar.number_input("Max defect area (mm²)", value=5.0, min_value=0.1, step=0.5)
-    pixel_size = st.sidebar.number_input("Pixel size (mm/pixel)", value=0.1, min_value=0.01, step=0.01,
+    pixel_size = st.sidebar.number_input("Pixel size (mm/pixel)", value=load_mm_per_px(), min_value=0.01, step=0.0001, format="%.4f",
                                           help="Calibrate by measuring a known dimension in the image")
     
     tolerances = {'max_length_mm': max_length, 'max_area_mm2': max_area}
@@ -338,8 +344,8 @@ def main():
             # Log with measurements
             log_inspection(prediction, confidence, is_defective, total_area, max_len, int(all_passed))
         else:
-            st.info("Segmentation found no measurable defect regions")
-            log_inspection(prediction, confidence, is_defective)
+            st.warning("📋 **VERDICT: REVIEW** — classifier found a defect but segmentation found no region. Send for manual inspection.")
+            log_inspection(prediction, confidence, is_defective, 0, 0, 0)
     
     elif uploaded_file and not is_defective:
         log_inspection(prediction, confidence, is_defective)
